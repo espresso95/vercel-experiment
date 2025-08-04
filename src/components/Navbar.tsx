@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
     { label: 'Home', value: 'home' },
     { label: '3D Globe', value: 'globe' },
     { label: 'About', value: 'about' },
-    { label: 'Contact', value: 'contact' }
+    { label: 'Contact', value: 'contact' },
   ];
 
   const drawer = (
@@ -47,9 +47,9 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
         MyApp
       </Typography>
       <List>
-        {menuItems.map((item) => (
+        {menuItems.map(item => (
           <ListItem key={item.value} disablePadding>
-            <ListItemButton 
+            <ListItemButton
               sx={{ textAlign: 'center' }}
               onClick={() => handleNavigation(item.value)}
             >
@@ -76,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           >
             MyApp
           </Typography>
-          
+
           {isMobile ? (
             <IconButton
               color="inherit"
@@ -88,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             </IconButton>
           ) : (
             <Box sx={{ display: 'flex', gap: 2 }}>
-              {menuItems.map((item) => (
+              {menuItems.map(item => (
                 <Button
                   key={item.value}
                   color="inherit"
@@ -106,7 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           )}
         </Toolbar>
       </AppBar>
-      
+
       <Drawer
         variant="temporary"
         open={mobileOpen}

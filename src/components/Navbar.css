@@ -113,7 +113,7 @@
   .navbar-container {
     padding: 1rem;
   }
-  
+
   .navbar-menu {
     display: none;
     position: absolute;
@@ -123,27 +123,27 @@
     background-color: #1a1a1a;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
+
   .navbar-nav {
     flex-direction: column;
     gap: 0;
     padding: 1rem 0;
   }
-  
+
   .navbar-link {
     display: block;
     padding: 1rem 2rem;
     border-radius: 0;
   }
-  
+
   .navbar-link::after {
     display: none;
   }
-  
+
   .navbar-toggle {
     display: flex;
   }
-  
+
   /* Add active state for mobile menu */
   .navbar-menu.active {
     display: block;
