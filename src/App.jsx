@@ -1,10 +1,14 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 function App() {
   return (
-    <main>
-      <h1>Welcome to nicks exploration site</h1>
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <h1>Welcome to nicks exploration site</h1>
+      </main>
+    </>
   );
 }
 
