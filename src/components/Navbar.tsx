@@ -16,7 +16,11 @@ import {
 } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onNavigate?: (page: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -25,7 +29,17 @@ const Navbar: React.FC = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const menuItems = ['Home', 'About', 'Services', 'Contact'];
+  const handleNavigation = (page: string) => {
+    onNavigate?.(page);
+    setMobileOpen(false);
+  };
+
+  const menuItems = [
+    { label: 'Home', value: 'home' },
+    { label: '3D Globe', value: 'globe' },
+    { label: 'About', value: 'about' },
+    { label: 'Contact', value: 'contact' }
+  ];
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -34,9 +48,12 @@ const Navbar: React.FC = () => {
       </Typography>
       <List>
         {menuItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+          <ListItem key={item.value} disablePadding>
+            <ListItemButton 
+              sx={{ textAlign: 'center' }}
+              onClick={() => handleNavigation(item.value)}
+            >
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -73,15 +90,16 @@ const Navbar: React.FC = () => {
             <Box sx={{ display: 'flex', gap: 2 }}>
               {menuItems.map((item) => (
                 <Button
-                  key={item}
+                  key={item.value}
                   color="inherit"
+                  onClick={() => handleNavigation(item.value)}
                   sx={{
                     '&:hover': {
                       backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     },
                   }}
                 >
-                  {item}
+                  {item.label}
                 </Button>
               ))}
             </Box>
