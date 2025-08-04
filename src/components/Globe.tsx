@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Sphere, Html } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -86,12 +86,34 @@ const latLngToVector3 = (lat: number, lng: number, radius: number = 2) => {
   return new THREE.Vector3(x, y, z)
 }
 
-// Pin Component
+// Pin Component with visibility detection
 const PinMarker: React.FC<{ pin: Pin; globeRadius: number }> = ({ pin, globeRadius }) => {
   const position = latLngToVector3(pin.lat, pin.lng, globeRadius + 0.1)
+  const { camera } = useThree()
+  const [isVisible, setIsVisible] = React.useState(true)
+  const groupRef = useRef<THREE.Group>(null!)
+  
+  // Update visibility on every frame
+  useFrame(() => {
+    if (groupRef.current) {
+      // Get the world position of the pin (accounting for globe rotation)
+      const worldPosition = new THREE.Vector3()
+      groupRef.current.getWorldPosition(worldPosition)
+      
+      // Vector from center of globe to pin's world position
+      const pinDirection = worldPosition.clone().normalize()
+      // Vector from center of globe to camera
+      const cameraDirection = camera.position.clone().normalize()
+      // Dot product to determine if pin is facing the camera
+      const dotProduct = pinDirection.dot(cameraDirection)
+      // Pin is visible if dot product > 0 (facing camera)
+      const visible = dotProduct > 0.2
+      setIsVisible(visible)
+    }
+  })
   
   return (
-    <group position={position}>
+    <group ref={groupRef} position={position}>
       {/* Pin stem */}
       <mesh>
         <cylinderGeometry args={[0.01, 0.01, 0.2]} />
@@ -102,20 +124,22 @@ const PinMarker: React.FC<{ pin: Pin; globeRadius: number }> = ({ pin, globeRadi
         <sphereGeometry args={[0.05]} />
         <meshStandardMaterial color={pin.color || '#ff4444'} />
       </mesh>
-      {/* Label */}
-      <Html position={[0, 0.2, 0]} center>
-        <div style={{
-          background: 'rgba(0, 0, 0, 0.8)',
-          color: 'white',
-          padding: '4px 8px',
-          borderRadius: '4px',
-          fontSize: '12px',
-          whiteSpace: 'nowrap',
-          pointerEvents: 'none'
-        }}>
-          {pin.label}
-        </div>
-      </Html>
+      {/* Label - only show if pin is visible */}
+      {isVisible && (
+        <Html position={[0, 0.2, 0]} center>
+          <div style={{
+            background: 'rgba(0, 0, 0, 0.8)',
+            color: 'white',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '12px',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none'
+          }}>
+            {pin.label}
+          </div>
+        </Html>
+      )}
     </group>
   )
 }
