@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Container, Typography, Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import GlobePage from './pages/GlobePage';
+import PodcastPage from './pages/PodcastPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -14,6 +15,8 @@ function App() {
     switch (currentPage) {
       case 'globe':
         return <GlobePage />;
+      case 'podcasts':
+        return <PodcastPage onNavigate={handleNavigation} />;
       case 'home':
       default:
         return (
@@ -38,7 +41,8 @@ function App() {
                   color="text.secondary"
                   sx={{ mt: 2 }}
                 >
-                  Check out the interactive 3D Globe in the navigation menu!
+                  Check out the interactive 3D Globe and Podcast Library in the
+                  navigation menu!
                 </Typography>
               </Box>
             </Container>
@@ -47,9 +51,13 @@ function App() {
     }
   };
 
-  // If we're on the globe page, render it directly (it has its own navbar)
+  // If we're on the globe or podcasts page, render them directly (they have their own navbar)
   if (currentPage === 'globe') {
     return <GlobePage onNavigate={handleNavigation} />;
+  }
+
+  if (currentPage === 'podcasts') {
+    return <PodcastPage onNavigate={handleNavigation} />;
   }
 
   return renderPage();
