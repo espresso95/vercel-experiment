@@ -37,8 +37,6 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const menuItems = [
     { label: 'Home', value: 'home' },
     { label: '3D Globe', value: 'globe' },
-    { label: 'About', value: 'about' },
-    { label: 'Contact', value: 'contact' },
   ];
 
   const drawer = (
