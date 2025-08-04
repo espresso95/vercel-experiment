@@ -18,26 +18,6 @@ const GlobePage: React.FC<GlobePageProps> = ({ onNavigate }) => {
       {/* Full-screen Globe */}
       <Globe />
       
-      {/* Floating title overlay */}
-      <Box sx={{ 
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        textAlign: 'center',
-        zIndex: 5,
-        pointerEvents: 'none',
-        color: 'white',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
-      }}>
-        <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Interactive Earth Globe
-        </Typography>
-        <Typography variant="h6" component="p" sx={{ opacity: 0.9 }}>
-          Drag to rotate • Scroll to zoom • Pinch on mobile
-        </Typography>
-      </Box>
-      
       {/* Instructions in bottom corner */}
       <Box sx={{ 
         position: 'absolute',

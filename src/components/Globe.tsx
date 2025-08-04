@@ -124,63 +124,14 @@ const PinMarker: React.FC<{ pin: Pin; globeRadius: number }> = ({ pin, globeRadi
 function EarthGlobe() {
   const meshRef = useRef<THREE.Mesh>(null!)
   
-  // Create earth texture (you can replace this with an actual earth texture URL)
+  // Create earth texture using real Earth imagery
   const earthTexture = useMemo(() => {
-    // Create a more detailed earth-like texture using canvas
-    const canvas = document.createElement('canvas')
-    canvas.width = 1024
-    canvas.height = 512
-    const context = canvas.getContext('2d')!
-    
-    // Create ocean background
-    context.fillStyle = '#1E88E5' // Ocean blue
-    context.fillRect(0, 0, 1024, 512)
-    
-    // Add continents (simplified representations)
-    context.fillStyle = '#2E7D32' // Land green
-    
-    // North America
-    context.beginPath()
-    context.ellipse(200, 160, 80, 60, 0, 0, Math.PI * 2)
-    context.fill()
-    
-    // South America
-    context.beginPath()
-    context.ellipse(250, 280, 40, 80, 0, 0, Math.PI * 2)
-    context.fill()
-    
-    // Africa
-    context.beginPath()
-    context.ellipse(480, 200, 60, 100, 0, 0, Math.PI * 2)
-    context.fill()
-    
-    // Europe
-    context.beginPath()
-    context.ellipse(450, 120, 40, 30, 0, 0, Math.PI * 2)
-    context.fill()
-    
-    // Asia
-    context.beginPath()
-    context.ellipse(650, 140, 120, 80, 0, 0, Math.PI * 2)
-    context.fill()
-    
-    // Australia
-    context.beginPath()
-    context.ellipse(750, 320, 50, 30, 0, 0, Math.PI * 2)
-    context.fill()
-    
-    // Add some cloud-like patterns
-    context.fillStyle = 'rgba(255, 255, 255, 0.3)'
-    for (let i = 0; i < 30; i++) {
-      const x = Math.random() * 1024
-      const y = Math.random() * 512
-      const radius = Math.random() * 30 + 10
-      context.beginPath()
-      context.arc(x, y, radius, 0, Math.PI * 2)
-      context.fill()
-    }
-    
-    return new THREE.CanvasTexture(canvas)
+    const loader = new THREE.TextureLoader()
+    // Using a bright, high-contrast Earth texture
+    const texture = loader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+    texture.wrapS = THREE.RepeatWrapping
+    texture.wrapT = THREE.RepeatWrapping
+    return texture
   }, [])
 
   // Auto-rotate the globe slowly
@@ -196,7 +147,7 @@ function EarthGlobe() {
         args={[2, 64, 64]} 
         position={[0, 0, 0]}
       >
-        <meshStandardMaterial 
+        <meshBasicMaterial 
           map={earthTexture}
           transparent={false}
         />
@@ -218,10 +169,11 @@ const Globe: React.FC = () => {
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ background: 'linear-gradient(to bottom, #000428 0%, #004e92 100%)' }}
       >
-        {/* Lighting */}
-        <ambientLight intensity={0.6} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        {/* Enhanced lighting for better visibility */}
+        <ambientLight intensity={1.2} />
+        <pointLight position={[10, 10, 10]} intensity={1.5} />
+        <pointLight position={[-10, -10, -10]} intensity={0.8} />
+        <pointLight position={[0, 10, 0]} intensity={0.6} />
         
         {/* Earth Globe with predefined pins */}
         <EarthGlobe />
