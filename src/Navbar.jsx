@@ -1,33 +1,26 @@
 import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 function Navbar() {
-  const navStyle = {
-    backgroundColor: '#333',
-    padding: '1rem',
-  };
-
-  const listStyle = {
-    display: 'flex',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  };
-
-  const linkStyle = {
-    color: '#fff',
-    textDecoration: 'none',
-    marginRight: '1rem',
-  };
-
   return (
-    <nav style={navStyle}>
-      <ul style={listStyle}>
-        <li><a href="#" style={linkStyle}>Home</a></li>
-        <li><a href="#" style={linkStyle}>About</a></li>
-        <li><a href="#" style={linkStyle}>Contact</a></li>
-      </ul>
-    </nav>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          My Site
+        </Typography>
+        <Box>
+          <Button color="inherit">Home</Button>
+          <Button color="inherit">About</Button>
+          <Button color="inherit">Contact</Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
 
 export default Navbar;
+
