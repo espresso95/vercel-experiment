@@ -1,5 +1,9 @@
 function App() {
-  return <h1>Hello, React with Vite!</h1>;
+  return (
+    <main>
+      <h1>Welcome to nicks exploration site</h1>
+    </main>
+  );
 }
 
 export default App;
