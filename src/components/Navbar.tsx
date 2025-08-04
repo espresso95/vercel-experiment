@@ -38,6 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
     { label: 'Home', value: 'home' },
     { label: '3D Globe', value: 'globe' },
     { label: 'Podcasts', value: 'podcasts' },
+    { label: 'Ebooks', value: 'ebooks' },
   ];
 
   const drawer = (
