@@ -1,4 +1,5 @@
 import React from 'react';
+import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,19 +12,26 @@ const menuItems = [
   { text: 'Color Experiment', href: '/color.html' },
 ];
 
-function SideMenu() {
+function SideMenu({ open, onClose }) {
   return (
-    <Box component="nav" sx={{ width: 200, flexShrink: 0 }}>
-      <List>
-        {menuItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton component="a" href={item.href}>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+    <Drawer anchor="left" open={open} onClose={onClose}>
+      <Box
+        sx={{ width: 250 }}
+        role="presentation"
+        onClick={onClose}
+        onKeyDown={onClose}
+      >
+        <List>
+          {menuItems.map((item) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton component="a" href={item.href}>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </Drawer>
   );
 }
 
