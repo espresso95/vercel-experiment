@@ -1,13 +1,17 @@
 import React from 'react';
 import Navbar from './Navbar';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
 function App() {
   return (
     <>
       <Navbar />
-      <main>
-        <h1>Welcome to nicks exploration site</h1>
-      </main>
+      <Container component="main" sx={{ mt: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Welcome to nicks exploration site
+        </Typography>
+      </Container>
     </>
   );
 }
