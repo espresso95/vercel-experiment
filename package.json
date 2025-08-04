@@ -1,0 +1,8 @@
+{
+  "name": "basic-react-app",
+  "version": "1.0.0",
+  "description": "A basic React application using CDN",
+  "scripts": {
+    "test": "echo 'No tests specified' && exit 0"
+  }
+}
